@@ -35,7 +35,7 @@ save = strToBool(args.save)
 patch_size = int(args.patch_size)
 assert patch_size > 0, "Patch size must be a positive integer"
 
-customWeightsPath = args.weighstPath
+customWeightsPath = args.weightsPath
 
 if model_type == "sr":
     model = models.ImageSuperResolutionModel(scale_factor, customWeightsPath)
