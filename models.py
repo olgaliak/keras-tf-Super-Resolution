@@ -454,7 +454,7 @@ def _evaluate_denoise(sr_model : BaseSuperResolutionModel, validation_dir, scale
 
 class ImageSuperResolutionModel(BaseSuperResolutionModel):
 
-    def __init__(self, scale_factor):
+    def __init__(self, scale_factor, customWeightsPath = None):
         super(ImageSuperResolutionModel, self).__init__("Image SR", scale_factor)
 
         self.f1 = 9
@@ -464,7 +464,10 @@ class ImageSuperResolutionModel(BaseSuperResolutionModel):
         self.n1 = 64
         self.n2 = 32
 
-        self.weight_path = "weights/SR Weights %dX.h5" % (self.scale_factor)
+        if customWeightsPath == None:
+            self.weight_path = "weights/SR Weights %dX.h5" % (self.scale_factor)
+        else:
+            self.weight_path = customWeightsPath
 
     def create_model(self, height=32, width=32, channels=3, load_weights=False, batch_size=128):
         """

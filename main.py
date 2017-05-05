@@ -12,6 +12,7 @@ parser.add_argument("--save_intermediate", dest='save', default='False', type=st
                         help="Whether to save bilinear upscaled image")
 parser.add_argument("--suffix", default="scaled", type=str, help='Suffix of saved image')
 parser.add_argument("--patch_size", type=int, default=8, help='Patch Size')
+parser.add_argument("--weightsPath", type=str, help="Path to the weights file", default=None)
 
 def strToBool(v):
     return v.lower() in ("true", "yes", "t", "1")
@@ -34,8 +35,10 @@ save = strToBool(args.save)
 patch_size = int(args.patch_size)
 assert patch_size > 0, "Patch size must be a positive integer"
 
+customWeightsPath = args.weighstPath
+
 if model_type == "sr":
-    model = models.ImageSuperResolutionModel(scale_factor)
+    model = models.ImageSuperResolutionModel(scale_factor, customWeightsPath)
 elif model_type == "esr":
     model = models.ExpantionSuperResolution(scale_factor)
 elif model_type == "dsr":
